@@ -1,10 +1,10 @@
 describe('DatePicker', () => {
     beforeAll(async () => {
-        await page.goto('http://localhost:3001');
+        await page.goto('http://localhost:3000');
     });
 
     it('should get a date', async () => {
-        const dateToEnter = '11/11/2011';
+        const dateToEnter = '01/01/2011';
         const selector = 'input';
         await page.click(selector, { clickCount: 3 });
         await page.type(selector, dateToEnter);
