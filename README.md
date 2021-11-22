@@ -1,70 +1,65 @@
-# Getting Started with Create React App
+# Demo bug with mui DatePicker and puppeteer
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+In a terminal, run the react side that displays the DatePicker:
 
-## Available Scripts
+```
+yarn start
+```
 
-In the project directory, you can run:
+In another terminal run the end-to-end test that tests the date picker using puppeteer:
 
-### `yarn start`
+```
+yarn e2e
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+The default date is set to today.
+The test will attempt to set the date to `01/01/2011`
+and then expect the date to be set to that new date.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+This works fine on MacOS and in any headed version of puppeteer, but it fails on linux headless.
 
-### `yarn test`
+Result on MacOS:
+```
+$ jest
+ PASS  e2e/e2e.test.js
+  DatePicker
+    ✓ should get a date (488 ms)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Test Suites: 1 passed, 1 total
+Tests:       1 passed, 1 total
+Snapshots:   0 total
+Time:        1.372 s, estimated 2 s
+Ran all test suites.
+✨  Done in 2.56s.
+```
 
-### `yarn build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Result on linux:
+```
+$ jest
+ FAIL  e2e/e2e.test.js
+  DatePicker
+    ✕ should get a date (296 ms)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+  ● DatePicker › should get a date
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    expect(received).toEqual(expected) // deep equality
 
-### `yarn eject`
+    Expected: "01/01/2011"
+    Received: "11/22/2021"
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+      10 |         await page.type(selector, dateToEnter);
+      11 |         const dateEntered = await page.$eval(selector, el => el.value);
+    > 12 |         expect(dateEntered).toEqual(dateToEnter);
+         |                             ^
+      13 |     })
+      14 | });
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+      at Object.<anonymous> (e2e.test.js:12:29)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 1 total
+Snapshots:   0 total
+Time:        1.269 s, estimated 2 s
+Ran all test suites.
+error Command failed with exit code 1.```
