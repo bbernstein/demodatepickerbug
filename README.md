@@ -1,5 +1,8 @@
 # Demo bug with mui DatePicker and puppeteer
 
+Reference to [this issue](https://github.com/mui-org/material-ui/issues/29820).
+
+
 In a terminal window, first set up the app:
 ```
 yarn install
