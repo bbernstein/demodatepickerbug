@@ -1,6 +1,11 @@
 # Demo bug with mui DatePicker and puppeteer
 
-In a terminal, run the react side that displays the DatePicker:
+In a terminal window, first set up the app:
+```
+yarn install
+```
+
+Next, run the react side that displays the DatePicker:
 
 ```
 yarn start
