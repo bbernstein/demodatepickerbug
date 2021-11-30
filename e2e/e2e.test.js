@@ -9,11 +9,17 @@ describe('CompareDatePickers', () => {
     describe('DatePicker', () => {
         it('should get a date from a DatePicker', async () => {
             const selector = '#datePicker';
+
+            // tried this several ways with same result
+            // triple-click selects the whole field
+            // await page.click(selector, {clickCount: 3});
+
+            // click and then left-arrow the longest length of a date
             await page.click(selector);
-//            await page.click(selector, { clickCount: 3 });
-            for (let i=0; i<10; i++) {
+            for (let i = 0; i < 10; i++) {
                 await page.keyboard.press('ArrowLeft');
             }
+
             await page.type(selector, localeDate);
             const dateEntered = await page.$eval(selector, el => el.value);
             expect(dateEntered).toEqual(localeDate);
@@ -23,10 +29,13 @@ describe('CompareDatePickers', () => {
     describe('NativePicker', () => {
         it('should get a date from Native Picker', async () => {
             const selector = '#nativePicker';
+
+            // in native picker, there are three fields to back up through at most
             await page.click(selector);
-            for (let i=0; i<3; i++) {
+            for (let i = 0; i < 3; i++) {
                 await page.keyboard.press('ArrowLeft');
             }
+
             await page.type(selector, localeDate);
             const dateInForm = await page.$eval(selector, el => el.value);
             expect(dateInForm).toEqual(isoDate);
