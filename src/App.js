@@ -1,3 +1,4 @@
+import * as React from 'react';
 import {DatePicker} from "@mui/lab";
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
@@ -9,6 +10,7 @@ function App() {
         backgroundColor: '#ffffff',
         margin: '20px'
     }
+    const [value, setValue] = React.useState(null);
     return (
         <div className="App">
             <body className="App-body">
@@ -16,9 +18,11 @@ function App() {
                 <div>MUI DatePicker</div>
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                     <DatePicker
-                        value={new Date()}
+                        value={value}
                         inputFormat={'MM/dd/yyyy'}
-                        onChange={onChange.bind(this)}
+                        onChange={(newValue) => {
+                            setValue(newValue);
+                        }}
                         renderInput={(params) => <TextField id="datePicker" {...params} />}
                     />
                 </LocalizationProvider>
@@ -37,8 +41,8 @@ function App() {
     );
 }
 
-function onChange(date: Date) {
-    console.log("something changed", date);
-}
+// function onChange(date: Date) {
+//     console.log("something changed", date);
+// }
 
 export default App;
