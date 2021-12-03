@@ -25,23 +25,4 @@ describe('CompareDatePickers', () => {
             expect(dateEntered).toEqual(localeDate);
         })
     });
-
-    // describe('NativePicker', () => {
-    //     it('should get a date from Native Picker', async () => {
-    //         const selector = '#nativePicker';
-    //
-    //         // in native picker, there are three fields to back up through at most
-    //         await page.click(selector);
-    //         for (let i = 0; i < 3; i++) {
-    //             await page.keyboard.press('ArrowLeft');
-    //         }
-    //
-    //         await page.type(selector, localeDate);
-    //         const dateInForm = await page.$eval(selector, el => el.value);
-    //         expect(dateInForm).toEqual(isoDate);
-    //     })
-    //
-    // });
-
-
 });
