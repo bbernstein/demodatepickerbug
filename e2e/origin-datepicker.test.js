@@ -5,9 +5,10 @@ describe('CompareDatePickers', () => {
 
     const localeDate = '01/01/2011';
 
-    describe('DatePicker', () => {
-        it('should get a date from a DatePicker', async () => {
-            const selector = '#mui-36';
+    describe('DatePicker on mui.com/components/date-picker/', () => {
+        it('should get a date from Basic usage', async () => {
+            // yes, this is fragile, but the id seemed to have changed on me
+            const selector = '#main-content > div:nth-child(6) div div div input';
 
             // tried this several ways with same result
             // triple-click selects the whole field
